@@ -11,7 +11,7 @@
     "storageSettings": {
       "type": "object"
     },
-    "adminPassword": {
+    "sshKeyData": {
       "type": "securestring"
     },
     "machineSettings": {
@@ -79,13 +79,23 @@
         "availabilitySet": {
           "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('machineSettings').availabilitySet)]"
         },
-        "hardwareProfile": {
+        "hardwareProfile": 
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
         "osProfile": {
           "computerName": "[concat(variables('vmName'), copyindex())]",
           "adminUsername": "[variables('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]"
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData')]"
+                }
+              ]
+            }
+          }
         },
         "storageProfile": {
           "imageReference": "[parameters('osSettings').imageReference]",
