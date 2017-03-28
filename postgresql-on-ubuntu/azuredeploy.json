@@ -21,10 +21,10 @@
         "description": "Virtual machine administrator username"
       }
     },
-    "adminPassword": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Virtual machine administrator password"
+    "sshKeyData": {
+            "type": "string",
+            "metadata": {
+                "description": "SSH rsa public key file as a string."
       }
     },
     "tshirtSize": {
@@ -67,6 +67,7 @@
   },
   "variables": {
     "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/postgresql-on-ubuntu/",
+    "sshKeyPath": "[concat('/home/',parameters('adminUserName'),'/.ssh/authorized_keys')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "tshirtSizeSmall": {
       "vmSize": "Standard_A1",
@@ -215,8 +216,12 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "adminPassword": {
-            "value": "[parameters('adminPassword')]"
+          "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData')]"
+                }
           },
           "replicatorPassword": {
             "value": "[parameters('replicatorPassword')]"
@@ -267,8 +272,12 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "adminPassword": {
-            "value": "[parameters('adminPassword')]"
+           "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData')]"
+                }
           },
           "replicatorPassword": {
             "value": "[parameters('replicatorPassword')]"
@@ -333,8 +342,12 @@
               "namespace": "jumpbox"
             }
           },
-          "adminPassword": {
-            "value": "[parameters('adminPassword')]"
+           "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData')]"
+                }
           },
           "subnet": {
             "value": "[variables('networkSettings').subnets.dmz]"
