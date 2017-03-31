@@ -66,7 +66,7 @@
     }
   },
   "variables": {
-    "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/postgresql-on-ubuntu/",
+    "templateBaseUrl": "https://github.com/jijouohmac/azure-quickstart-templates/tree/master/postgresql-on-ubuntu/",
     "sshKeyPath": "[concat('/home/',parameters('adminUserName'),'/.ssh/authorized_keys')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "tshirtSizeSmall": {
@@ -147,7 +147,7 @@
     "osSettings": {
       "scripts": [
         "[concat(variables('templateBaseUrl'), 'install_postgresql.sh')]",
-        "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
+        "https://github.com/jijouohmac/azure-quickstart-templates/tree/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"
       ],
       "imageReference": {
         "publisher": "Canonical",
@@ -216,13 +216,10 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "ssh": {
-              "publicKeys": [
-                {
-                  "path": "[variables('sshKeyPath')]",
-                  "keyData": "[parameters('sshKeyData')]"
-                }
-          },
+          "sshKeyData": {
+            "value": "[parameters('sshKeyData')]"
+          } ,
+          
           "replicatorPassword": {
             "value": "[parameters('replicatorPassword')]"
           },
@@ -272,12 +269,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-           "ssh": {
-              "publicKeys": [
-                {
-                  "path": "[variables('sshKeyPath')]",
-                  "keyData": "[parameters('sshKeyData')]"
-                }
+           "sshKeyData": {
+            "value": "[parameters('sshKeyData')]
           },
           "replicatorPassword": {
             "value": "[parameters('replicatorPassword')]"
@@ -342,13 +335,7 @@
               "namespace": "jumpbox"
             }
           },
-           "ssh": {
-              "publicKeys": [
-                {
-                  "path": "[variables('sshKeyPath')]",
-                  "keyData": "[parameters('sshKeyData')]"
-                }
-          },
+          
           "subnet": {
             "value": "[variables('networkSettings').subnets.dmz]"
           },
