@@ -11,7 +11,7 @@
     "storageSettings": {
       "type": "object"
     },
-    "adminPassword": {
+    "sshKeyData": {
       "type": "securestring"
     },
     "subnet": {
@@ -83,7 +83,17 @@
         "osProfile": {
           "computerName": "[variables('vmName')]",
           "adminUsername": "[parameters('commonSettings').adminUsername]",
-          "adminPassword": "[parameters('adminPassword')]"
+          "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "[variables('sshKeyPath')]",
+                                    "keyData": "[parameters('sshKeyData')]"
+                                }
+                            ]
+                        }
+                    }
         },
         "storageProfile": {
           "imageReference": "[parameters('osSettings').imageReference]",
