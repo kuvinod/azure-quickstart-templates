@@ -11,6 +11,9 @@
     "storageSettings": {
       "type": "object"
     },
+    "adminUsername": {
+      "type": "string"
+    },
     "sshKeyData": {
       "type": "securestring"
     },
