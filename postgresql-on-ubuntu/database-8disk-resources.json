@@ -8,6 +8,15 @@
     "osSettings": {
       "type": "object"
     },
+    
+     "adminUserName": {
+      "type": "string",
+      "defaultValue": "azureuser",
+      "metadata": {
+        "description": "User name for the Virtual Machine."
+      }
+      },
+    
     "storageSettings": {
       "type": "object"
     },
