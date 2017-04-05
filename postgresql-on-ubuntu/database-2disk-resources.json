@@ -33,7 +33,7 @@
   },
   "variables": {
     "namespace": "[parameters('commonSettings').namespace]",
-    "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
+    "sshKeyPath": "[concat('/home/',parameters('sshKeyData'),'/.ssh/authorized_keys')]",
     "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "storageAccountName": "[concat(parameters('storageSettings').name, variables('namespace'))]",
     "vmName": "[concat(variables('namespace'), 'vm')]",
