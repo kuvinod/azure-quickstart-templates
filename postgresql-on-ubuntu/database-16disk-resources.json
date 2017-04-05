@@ -14,9 +14,6 @@
     "sshKeyData": {
       "type": "securestring"
     },
-    "adminUsername": {
-      "type": "string"
-    },
     "machineSettings": {
       "type": "object"
     },
