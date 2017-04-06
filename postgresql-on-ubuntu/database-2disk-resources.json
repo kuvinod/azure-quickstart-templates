@@ -21,8 +21,11 @@
       "type": "object"
     },
     "sshKeyData": {
-      "type": "string"
-    },
+            "type": "string",
+            "metadata": {
+                "description": "key"
+            }
+        },
     
     "machineSettings": {
       "type": "object"
