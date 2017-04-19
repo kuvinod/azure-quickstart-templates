@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script is only tested on CentOS 6.5 and Ubuntu 12.04 LTS with Percona XtraDB Cluster 5.6.
-# You can customize variables such as MOUNTPOINT, RAIDCHUNKSIZE and so on to your needs.
+# You can customize variables such as MOUNTPOINT, RAIDCHUNKSIZE and so on to your needs..
 # You can also customize it to work with other Linux flavours and versions.
 # If you customize it, copy it to either Azure blob storage or Github so that Azure
 # custom script Linux VM extension can access it, and specify its location in the 
@@ -186,7 +186,7 @@ create_mycnf() {
 }
 
 install_mysql_ubuntu() {
-    dpkg -s mysql-5.7
+    dpkg -s mysql-5.6
     if [ ${?} -eq 0 ];
     then
         return
@@ -194,9 +194,9 @@ install_mysql_ubuntu() {
     echo "installing mysql"
     apt-get update
     export DEBIAN_FRONTEND=noninteractive
-	apt-get install -y mysql-server-5.7
+	apt-get install -y mysql-server-5.6
 	chown -R mysql:mysql "${MOUNTPOINT}/mysql/mysql"
-	apt-get install -y mysql-server-5.7
+	apt-get install -y mysql-server-5.6
 	wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python_2.1.3-1ubuntu14.04_all.deb
 	dpkg -i mysql-connector-python_2.1.3-1ubuntu14.04_all.deb
 	wget http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-utilities_1.6.4-1ubuntu14.04_all.deb
@@ -205,18 +205,18 @@ install_mysql_ubuntu() {
 }
 
 install_mysql_centos() {
-    rpm -qa |grep MySQL-server-5.7.26-1.el6.x86_64
+    rpm -qa |grep MySQL-server-5.6.26-1.el6.x86_64
     if [ ${?} -eq 0 ];
     then
         return
     fi
     echo "installing mysql"
-    wget https://dev.mysql.com/get/Downloads/MySQL-5.7/MySQL-5.7.26-1.el6.x86_64.rpm-bundle.tar
-    tar -xvf MySQL-5.7.26-1.el6.x86_64.rpm-bundle.tar
+    wget https://dev.mysql.com/get/Downloads/MySQL-5.6/MySQL-5.6.26-1.el6.x86_64.rpm-bundle.tar
+    tar -xvf MySQL-5.6.26-1.el6.x86_64.rpm-bundle.tar
 	curlib=$(rpm -qa |grep mysql-libs-)
     rpm -e --nodeps $curlib
-    rpm -ivh MySQL-server-5.7.26-1.el6.x86_64.rpm
-    rpm -ivh MySQL-client-5.7.26-1.el6.x86_64.rpm
+    rpm -ivh MySQL-server-5.6.26-1.el6.x86_64.rpm
+    rpm -ivh MySQL-client-5.6.26-1.el6.x86_64.rpm
 	wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.0.4-1.el6.noarch.rpm
 	rpm -ivh mysql-connector-python-2.0.4-1.el6.noarch.rpm
 	wget http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-utilities-1.5.5-1.el6.noarch.rpm
